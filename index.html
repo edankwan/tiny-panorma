@@ -1,0 +1,167 @@
+<html>
+    <head>
+        <title></title>
+        <link rel="stylesheet" href="http://edankwan.github.com/edankwan.codepen.io/css/reset.css" />
+        <link rel="stylesheet" href="http://edankwan.github.com/edankwan.codepen.io/css/ek_codepen.css" />
+        <style>
+            #info a  {
+            }
+            .world-3d{
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                -webkit-perspective: 800px;
+                -moz-perspective: 800px;
+                -ms-perspective: 800px;
+                perspective: 800px;
+
+                -webkit-transform-style: preserve-3d;
+                -moz-transform-style: preserve-3d;
+                -ms-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+
+                pointer-events: none;
+            }
+            .camera{
+                position: absolute;
+                left: 50%;
+                top: 50%;
+
+                -webkit-transform-style: preserve-3d;
+                -moz-transform-style: preserve-3d;
+                -ms-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+            }
+            .skybox{
+                position: absolute;
+                width: 1024px;
+                height: 1024px;
+                -webkit-backface-visibility: hidden;
+                -moz-backface-visibility: hidden;
+                -ms-backface-visibility: hidden;
+                backface-visibility: hidden;
+
+                -webkit-transform-style: preserve-3d;
+                -moz-transform-style: preserve-3d;
+                -ms-transform-style: preserve-3d;
+                transform-style: preserve-3d;
+
+                -webkit-transform-origin: 0 0;
+                -moz-transform-origin: 0 0;
+                -ms-transform-origin: 0 0;
+                -o-transform-origin: 0 0;
+                transform-origin: 0 0;
+
+                -webkit-perspective-origin: 0 0;
+                -moz-perspective-origin: 0 0;
+                -ms-perspective-origin: 0 0;
+                perspective-origin: 0 0;
+            }
+            .skybox div{
+                position: absolute;
+                width: 1024px;
+                height: 1024px;
+            }
+            .skybox.left{
+                background-image: url(img/left.jpg);
+            }
+            .skybox.front{
+                background-image: url(img/front.jpg);
+            }
+            .skybox.right{
+                background-image: url(img/right.jpg);
+            }
+            .skybox.back{
+                background-image: url(img/back.jpg);
+            }
+            .skybox.top{
+                background-image: url(img/top.jpg);
+            }
+            .skybox.bottom{
+                background-image: url(img/bottom.jpg);
+            }
+            .skybox.left{
+                -webkit-transform: rotateY(90deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                -moz-transform: rotateY(90deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                -ms-transform: rotateY(90deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                -o-transform: rotateY(90deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                transform: rotateY(90deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+            }
+            .skybox.front{
+                -webkit-transform: rotateY(0) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                -moz-transform: rotateY(0) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                -ms-transform: rotateY(0) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                -o-transform: rotateY(0) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                transform: rotateY(0) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+            }
+            .skybox.right{
+                -webkit-transform: rotateY(-90deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                -moz-transform: rotateY(-90deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                -ms-transform: rotateY(-90deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                -o-transform: rotateY(-90deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                transform: rotateY(-90deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+            }
+            .skybox.back{
+                -webkit-transform: rotateY(180deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                -moz-transform: rotateY(180deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                -ms-transform: rotateY(180deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                -o-transform: rotateY(180deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                transform: rotateY(180deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+            }
+            .skybox.top{
+                -webkit-transform: rotateX(-90deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                -moz-transform: rotateX(-90deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                -ms-transform: rotateX(-90deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                -o-transform: rotateX(-90deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                transform: rotateX(-90deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+            }
+            .skybox.bottom{
+                -webkit-transform: rotateX(90deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                -moz-transform: rotateX(90deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                -ms-transform: rotateX(90deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                -o-transform: rotateX(90deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+                transform: rotateX(90deg) translate3d(-512px, -512px, -512px) scale3d(1.007,1.007,1.007);
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <div id="info">
+                <h3>Tiny Panorma</h3>
+                <p>A super tiny panorma demo using CSS 3D</p>
+                <p>It is a super tiny panorma demo for a client project I did called 'Les Revenants'. It works well on iOS + modern browsers. However it has some rendering issue with Android browsers that the skybox faces which are outside the viewport won't be rendered.</p>
+                <a class="github" href="https://github.com/edankwan/ring-loader.codepen.io" target="_blank">github</a>
+                <a class="original" href="http://lesrevenants.canalplus.fr/?html=true" target="_blank">Les Revenants (iOS)</a>
+                <a class="myLab" href="http://www.edankwan.com/lab" target="_blank">My Lab</a>
+            </div>
+            <div class="world-3d">
+                <div class="camera">
+                    <div class="skybox front"><div></div></div>
+                    <div class="skybox left"><div></div></div>
+                    <div class="skybox right"><div></div></div>
+                    <div class="skybox back"><div></div></div>
+                    <div class="skybox bottom"><div></div></div>
+                    <div class="skybox top"><div></div></div>
+                </div>
+            </div>
+        </div>
+        <script src="http://edankwan.github.com/edankwan.codepen.io/js/lib/EKLoader.js"></script>
+        <script src="http://edankwan.github.com/edankwan.codepen.io/js/lib/PerspectiveTransform.min.js"></script>
+        <script src="http://edankwan.github.com/edankwan.codepen.io/js/lib/EKTweener.all.js"></script>
+        <script src="http://edankwan.github.com/edankwan.codepen.io/js/ekCodePen.js"></script>
+        <script>
+            var camera = document.querySelector(".camera");
+            var cameraStyle = camera.style;
+            var ry= 0;
+
+            /* code for the info box */
+            ekCodePen.init();
+            ekCodePen.showInfo();
+
+            setInterval(function(){
+                ry+=.2;
+                cameraStyle.webkitTransform = "translate3d(0,0,800px) rotateY(" + ry+ "deg)";
+            }, 1000/60)
+        </script>
+    </body>
+</html>
